@@ -3,8 +3,17 @@ from app.core.config import settings
 from app.db.database import Base, engine, SessionLocal
 from app.routes import auth, reviews, restaurants
 from app.db.seed import seed_restaurants
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title=settings.PROJECT_NAME)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 Base.metadata.create_all(bind=engine)
 
