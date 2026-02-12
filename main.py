@@ -1,7 +1,33 @@
 from fastapi import FastAPI
+from app.core.config import settings
+from app.db.database import Base, engine, SessionLocal
+from app.routes import auth, reviews, restaurants
+from app.db.seed import seed_restaurants
+from fastapi.middleware.cors import CORSMiddleware
+from app.routes import notification
 
-app = FastAPI(title="FoodieFinder API")
+app = FastAPI(title=settings.PROJECT_NAME)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+Base.metadata.create_all(bind=engine)
+
+# 🌱 Seed default restaurants
+db = SessionLocal()
+seed_restaurants(db)
+db.close()
+
+app.include_router(auth.router)
+app.include_router(restaurants.router)
+app.include_router(reviews.router)
+app.include_router(notification.router)
 
 @app.get("/")
 def health():
-    return {"status": "ok"}
+    return {"status": "FoodieFinder backend running"}
