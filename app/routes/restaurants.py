@@ -80,7 +80,8 @@ def search_restaurants(
             "name": r.name,
             "location": r.location,
             "average_rating": round(r.average_rating, 2) if r.average_rating else None,
-            "review_count": r.review_count
+            "review_count": r.review_count,
+            "address": r.address,
         }
         for r in data
     ]
