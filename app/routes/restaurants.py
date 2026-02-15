@@ -45,6 +45,7 @@ def search_restaurants(
             Restaurant.id,
             Restaurant.name,
             Restaurant.location,
+            Restaurant.address, 
             func.avg(Review.rating).label("average_rating"),
             func.count(Review.id).label("review_count")
         )
@@ -118,6 +119,7 @@ def get_recommendations(
                 Restaurant.id,
                 Restaurant.name,
                 Restaurant.location,
+                Restaurant.address, 
                 func.avg(Review.rating).label("average_rating"),
                 func.count(Review.id).label("review_count")
             )
@@ -141,6 +143,7 @@ def get_recommendations(
                 Restaurant.id,
                 Restaurant.name,
                 Restaurant.location,
+                Restaurant.address, 
                 func.avg(Review.rating).label("average_rating"),
                 func.count(Review.id).label("review_count")
             )
