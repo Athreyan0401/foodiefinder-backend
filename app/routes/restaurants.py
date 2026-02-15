@@ -163,6 +163,7 @@ def get_recommendations(
             "id": r.id,
             "name": r.name,
             "location": r.location,
+            "address": r.address,
             "average_rating": round(r.average_rating, 2) if r.average_rating else None,
             "review_count": r.review_count
         }
